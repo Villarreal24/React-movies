@@ -13,8 +13,10 @@ import ShoppingCart from './components/ShoppingCart';
 
 function App() {
 
+  const [totalPay, setTotalPay] = useState(0);
+  const [contTickets, setContTickets] = useState(0);
   const [show, setShow] = useState(false);
-  const [shoppingMovie, addShoppingMovie] = useState([]);
+  const [shoppingMovie, setShoppingMovie] = useState([]);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -22,7 +24,10 @@ function App() {
     // const movies = shoppingMovie
     let exists = false;
     if (shoppingMovie.length < 1) {
-      addShoppingMovie([data]);
+      data.ticket = 1;
+      // setContTickets(contTickets + 1)
+      setTotalPay(totalPay + 120)
+      setShoppingMovie([data]);
     } else {
       shoppingMovie.filter(item => {
         if (item.id === data.id) {
@@ -30,7 +35,9 @@ function App() {
         }
       })
       if (!exists) {
-        addShoppingMovie([...shoppingMovie, data]);
+        data.ticket = 1;
+        // setContTickets(contTickets + 1)
+        setShoppingMovie([...shoppingMovie, data]);
       }
     }
 
@@ -53,7 +60,15 @@ function App() {
         </Routes>
 
         <Offcanvas show={show} onHide={handleClose} placement="end" scroll="true">
-          <ShoppingCart setShow={handleShow} shoppingMovie={shoppingMovie} />
+          <ShoppingCart
+            setShow={handleShow}
+            shoppingMovie={shoppingMovie}
+            setShoppingMovie={setShoppingMovie}
+            totalPay={totalPay}
+            setTotalPay={setTotalPay}
+            contTickets={contTickets}
+            setContTickets={setContTickets}
+          />
         </Offcanvas>
 
       </div>

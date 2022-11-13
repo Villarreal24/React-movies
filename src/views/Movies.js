@@ -1,79 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import movie from '../movie.jpg';
+import axios from 'axios';
 
 const Movies = (props) => {
     // console.log(props)
+    const [arrayData, setArrayData] = useState([]);
+    // console.log(arrayData)
 
-    const array = [
-        {
-            id: 1,
-            name: 'Deadpool',
-            description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            price: '$110'
-        },
-        {
-            id: 2,
-            name: 'Top Gun 2',
-            description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            price: '$130'
-        },
-        {
-            id: 3,
-            name: 'Stringer Things',
-            description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            price: '$120'
-        },
-        {
-            id: 4,
-            name: 'Busqueda Implacable 3',
-            description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            price: '$100'
-        },
-        {
-            id: 5,
-            name: 'Rapidos y furiosos 8',
-            description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            price: '$160'
-        },
-        {
-            id: 6,
-            name: 'Un Marido Perfecto',
-            description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            price: '$125'
-        }
-    ]
+    useEffect(() => {
+        const { data } = axios.get("http://localhost:5000/api/movies/all")
+            .then((res) => {
+                if (res.status === parseInt('200')) {
+                    res.data.results.map(item => {
+                        item.poster_path = 'https://image.tmdb.org/t/p/w500' + item.poster_path
+                    })
+                    setArrayData(res.data.results)
+                } else {
+                    console.log("Error de conexion o con el servidor")
+                }
+            })
+
+    }, [])
 
     return (
         <div className='mt-5'>
-            <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                {array.map(item => (
+            <Row xs={1} md={3} lg={4} xl={5} className="g-4">
+                {arrayData.map(item => (
                     <Col key={item.id}>
-                        <Card>
-                            <Card className="bg-dark text-white">
-                                <Card.Img variant="top" src={movie} />
-                                <Card.ImgOverlay >
-                                    <Card.Body>
-                                        <Card.Title>{item.name}</Card.Title>
-                                    </Card.Body>
-                                </Card.ImgOverlay>
-                            </Card>
+                        <Card style={{ height: '30rem', width: '13rem' }}>
+                            <Card.Img style={{ height: '17rem' }} variant="top" src={item.poster_path} />
                             <Card.Body>
-                                <Card.Text>
-                                    {item.description}
-                                </Card.Text>
-                                <Card.Footer>
-                                    <Card.Text>Precio: {item.price}</Card.Text>
-                                    <Button variant="outline-secondary" onClick={() => {
+                                <h6>{item.original_title}</h6>
+                                <Card.Text aria-setsize={10}>Lanzamiento: {item.release_date}</Card.Text>
+                                <Card.Text>Valoracion: {item.vote_average}</Card.Text>
+
+                                <Button variant="outline-secondary"
+                                    size='sm'
+                                    onClick={() => {
                                         props.setShow()
                                         props.dataMovies(item)
                                     }}>
-                                        Agregar al carrito
-                                    </Button>
-                                </Card.Footer>
+                                    Agregar al carrito
+                                </Button>
                             </Card.Body>
                         </Card>
                     </Col>
