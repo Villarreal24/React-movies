@@ -26,7 +26,6 @@ const Payment = (props) => {
                                     <Row>
                                         <Col>{item.title}</Col>
                                         <Col md="auto">Boletos: {item.ticket}</Col>
-                                        {/* <Col><p>Total: {item.title}</p></Col> */}
                                     </Row>
                                 </ListGroup.Item>
                             </ListGroup>

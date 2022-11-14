@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 
 const Header = (props) => {
-    // console.log(props.setShow)
+
     return (
         <div>
             <Navbar bg="light" expand="lg">

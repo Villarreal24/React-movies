@@ -22,11 +22,10 @@ function App() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const dataMovies = (data) => {
-    // const movies = shoppingMovie
+
     let exists = false;
     if (shoppingMovie.length < 1) {
       data.ticket = 1;
-      // setContTickets(contTickets + 1)
       setTotalPay(totalPay + 120)
       setShoppingMovie([data]);
     } else {
@@ -37,7 +36,6 @@ function App() {
       })
       if (!exists) {
         data.ticket = 1;
-        // setContTickets(contTickets + 1)
         setShoppingMovie([...shoppingMovie, data]);
       }
     }

@@ -6,9 +6,8 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 
 const Movies = (props) => {
-    // console.log(props)
+
     const [arrayData, setArrayData] = useState([]);
-    // console.log(arrayData)
 
     useEffect(() => {
         const { data } = axios.get("http://localhost:5000/api/movies/all")
