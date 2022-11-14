@@ -11,7 +11,7 @@ const Header = (props) => {
         <div>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home">Peliculas</Navbar.Brand>
+                    <Navbar.Brand href="/">Peliculas</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Button variant="outline-success" onClick={props.setShow}>Carrito de compra</Button>
                 </Container>

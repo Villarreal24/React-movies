@@ -30,11 +30,11 @@ const Movies = (props) => {
             <Row xs={1} md={3} lg={4} xl={5} className="g-4">
                 {arrayData.map(item => (
                     <Col key={item.id}>
-                        <Card style={{ height: '30rem', width: '13rem' }}>
+                        <Card style={{ height: '28.6rem', width: '13rem' }}>
                             <Card.Img style={{ height: '17rem' }} variant="top" src={item.poster_path} />
                             <Card.Body>
                                 <h6>{item.original_title}</h6>
-                                <Card.Text aria-setsize={10}>Lanzamiento: {item.release_date}</Card.Text>
+                                <Card.Text aria-setsize={10}>Votaciones: {item.vote_count}</Card.Text>
                                 <Card.Text>Valoracion: {item.vote_average}</Card.Text>
 
                                 <Button variant="outline-secondary"

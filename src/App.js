@@ -13,6 +13,7 @@ import ShoppingCart from './components/ShoppingCart';
 
 function App() {
 
+  const [iva, setIva] = useState(0);
   const [totalPay, setTotalPay] = useState(0);
   const [contTickets, setContTickets] = useState(0);
   const [show, setShow] = useState(false);
@@ -55,12 +56,13 @@ function App() {
 
           <Route
             path="/payment"
-            element={<Payment name="Payment" />}
+            element={<Payment name="Payment" dataMovies={dataMovies} iva={iva} />}
           />
         </Routes>
 
         <Offcanvas show={show} onHide={handleClose} placement="end" scroll="true">
           <ShoppingCart
+            setClose={handleClose}
             setShow={handleShow}
             shoppingMovie={shoppingMovie}
             setShoppingMovie={setShoppingMovie}
@@ -68,6 +70,8 @@ function App() {
             setTotalPay={setTotalPay}
             contTickets={contTickets}
             setContTickets={setContTickets}
+            iva={iva}
+            setIva={setIva}
           />
         </Offcanvas>
 

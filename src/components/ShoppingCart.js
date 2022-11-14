@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const ShoppingCart = (props) => {
 
@@ -10,20 +11,28 @@ const ShoppingCart = (props) => {
     const movies = props.shoppingMovie;
     const totalPay = props.totalPay
     const contTickets = props.contTickets
+    const setIva = props.setIva
+
+    useEffect(() => {
+        calculateTotal();
+    }, [movies])
 
     const calculateTotal = () => {
         let total = 0
         let acum = 0
+        let iva = 0
         movies.map(movies => {
             acum = acum + movies.ticket
             props.setContTickets(acum);
         })
         total = acum * 120
+        iva = total * 0.16
+        setIva(iva)
         props.setTotalPay(total)
     }
 
     const purchase = () => {
-        console.log("Total de boletos: ", contTickets)
+        props.setClose()
     }
 
     const addTicket = (data) => {
@@ -41,10 +50,6 @@ const ShoppingCart = (props) => {
             setMovies(updateMovies)
         }
     }
-
-    useEffect(() => {
-        calculateTotal();
-    }, [movies])
 
     return (
         <div>
@@ -80,11 +85,18 @@ const ShoppingCart = (props) => {
 
             <div className="m-3">
                 <Row>
-                    <Col><h5>Total: {totalPay}</h5></Col>
+                    <Col><h5>Total: ${totalPay}</h5></Col>
                     <Col>
-                        <Button variant='success' onClick={() => purchase()}>
-                            Realizar compra
-                        </Button>
+                        <Link to="/payment"
+                            state={{ 
+                                movies: movies,
+                                contTickets: contTickets,
+                                totalPay: totalPay
+                            }}>
+                            <Button variant='success' action="/payment" onClick={() => purchase()}>
+                                Pasar a pagar
+                            </Button>
+                        </Link>
                     </Col>
                 </Row>
 
